@@ -1,0 +1,10 @@
+[project]
+name = "mcp-weather"
+
+authors         = [{ name = "Jose Galarza", email = "igalarzab@gmail.com" }]
+description     = "MCP server for checking the weather history and forecast"
+readme          = "README.md"
+requires-python = ">=3.13"
+version         = "0.1.0"
+
+dependencies = ["fastmcp>=2.10.5"]
