@@ -1,10 +1,23 @@
 [project]
-name = "mcp-weather"
+name = 'mcp-weather'
 
-authors         = [{ name = "Jose Galarza", email = "igalarzab@gmail.com" }]
-description     = "MCP server for checking the weather history and forecast"
-readme          = "README.md"
-requires-python = ">=3.13"
-version         = "0.1.0"
+authors         = [{ name = 'Jose Galarza', email = 'igalarzab@gmail.com' }]
+description     = 'MCP server for checking the weather history and forecast'
+readme          = 'README.md'
+requires-python = '>=3.13'
+version         = '0.1.0'
 
-dependencies = ["fastmcp>=2.10.5"]
+dependencies = ['fastmcp>=2.10.5']
+
+[dependency-groups]
+dev = ['pytest-asyncio>=1.0.0', 'pytest>=8.4.1']
+
+[project.scripts]
+mcp-weather = 'mcp_weather.main:main'
+
+[tool.pytest.ini_options]
+asyncio_mode = 'auto'
+
+[build-system]
+build-backend = 'hatchling.build'
+requires      = ['hatchling']
