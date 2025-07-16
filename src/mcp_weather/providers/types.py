@@ -7,6 +7,9 @@ class Weather(BaseModel):
     temperature: float
     description: str
 
+    def explain(self):
+        return f'The temperature in {self.address} was {self.temperature}C. The weather was {self.description}'
+
 class GeoCode(BaseModel):
     name: str
     country: str
