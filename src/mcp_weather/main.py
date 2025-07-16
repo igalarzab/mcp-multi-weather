@@ -36,6 +36,8 @@ def main() -> None:
                 'host': cli_args.host,
                 'port': cli_args.port,
             })
+        case _:
+            pass
 
     mcp.run(**run_cmd_args)
 
