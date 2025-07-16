@@ -18,5 +18,5 @@ async def test_get_weather_with_future_day():
     future_day = (date.today() + timedelta(days=1)).isoformat()
 
     async with Client(mcp) as client:
-        with pytest.raises(ToolError, match='Date should be in the past') as e:
+        with pytest.raises(ToolError, match='Date should be in the past'):
             await client.call_tool('get_weather', {'city': 'London, UK', 'day': future_day})

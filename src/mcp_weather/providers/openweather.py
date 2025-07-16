@@ -3,7 +3,7 @@ import time
 
 from pydantic import PastDate
 
-from .types import *
+from .types import GeoCode, InvalidAuth, QuotaExceeded, Scalar, Weather
 
 
 class OpenWeather:
@@ -30,12 +30,12 @@ class OpenWeather:
             'dt': int(time.mktime(day.timetuple())),
         })
 
-        if not response or not 'data' in response or not len(response['data']) > 0:
+        if not response or 'data' not in response or not len(response['data']) > 0:
             return None
 
         data = response['data'][0]
 
-        if not 'weather' in data or not len(data['weather']) > 0:
+        if 'weather' not in data or not len(data['weather']) > 0:
             return None
 
         return Weather(

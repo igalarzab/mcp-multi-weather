@@ -8,7 +8,7 @@ from mcp_weather.providers.types import Weather, GeoCode
 
 
 LONDON_MOCK = GeoCode(name='London', country='GB', lat=51.5, lon=0)
-WEATHER_MOCK = lambda t, d: {'data': [{'temp': t, 'weather': [{'description': d}]}]} # pyright: ignore
+WEATHER_MOCK = lambda t, d: {'data': [{'temp': t, 'weather': [{'description': d}]}]} # pyright: ignore # noqa: E731
 
 
 async def test_daily_weather_success():
