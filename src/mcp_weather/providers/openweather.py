@@ -80,4 +80,4 @@ class OpenWeather:
                     case 429:
                         raise QuotaExceeded(body['message'])
                     case _:
-                        raise ValueError(f'Error calling OpenWeather: {body['message']}')
+                        raise ValueError('Error calling OpenWeather: ' + body['message'])
