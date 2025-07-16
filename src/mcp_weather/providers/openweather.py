@@ -1,4 +1,5 @@
 import aiohttp
+import os
 import time
 
 from pydantic import PastDate
@@ -12,6 +13,15 @@ class OpenWeather:
     api_key: str
     units: str
     lang: str
+
+    @staticmethod
+    def from_env():
+        api_key = os.environ.get('OPENWEATHER_API_KEY')
+
+        if not api_key:
+            raise ValueError('Missing OPENWEATHER_API_KEY env var')
+
+        return OpenWeather(api_key=api_key)
 
     def __init__(self, api_key: str, units: str = 'metric', lang: str = 'en'):
         self.api_key = api_key

@@ -1,4 +1,5 @@
 import argparse
+import os
 
 from mcp_weather.mcp import mcp
 
@@ -9,20 +10,26 @@ def args_parser() -> argparse.Namespace:
     parser.add_argument(
         '--transport',
         choices=['http', 'stdio'],
-        default='http',
+        default=os.environ.get('MCP_TRANSPORT', 'http'),
         help='Transport to use: http or stdio (default: http)'
     )
 
     parser.add_argument(
         '--host',
-        default='127.0.0.1',
+        default=os.environ.get('MCP_HOST', '127.0.0.1'),
         help='Host to use (default: 127.0.0.1)'
     )
 
     parser.add_argument(
         '--port',
-        default=4200,
+        default=int(os.environ.get('MCP_PORT', 4200)),
         help='Port to use (default: 4200)'
+    )
+
+    parser.add_argument(
+        '--log-level',
+        default=os.environ.get('MCP_LOG_LEVEL', 'INFO'),
+        help='Log level to use (default INFO)'
     )
 
     return parser.parse_args()
@@ -35,7 +42,7 @@ def main() -> None:
     match cli_args.transport:
         case 'http':
             run_cmd_args.update({
-                'log_level': 'INFO',
+                'log_level': cli_args.log_level,
                 'host': cli_args.host,
                 'port': cli_args.port,
             })

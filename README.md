@@ -8,4 +8,8 @@ The server exposes a `get_weather` tool that allows checking weather conditions 
 
 ## How to run
 
-Install the package using pip:
+Install the package in your claude-desktop using uv:
+
+```
+$ uv run fastmcp install claude-desktop src/mcp_weather/mcp.py --env-file .env --env PYTHONPATH=$PWD/src/
+```

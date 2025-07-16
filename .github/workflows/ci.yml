@@ -35,3 +35,5 @@ jobs:
 
       - name: Test with Python ${{ matrix.python-version }}
         run: uv run --frozen pytest
+        env:
+          OPENWEATHER_API_KEY: dummy
