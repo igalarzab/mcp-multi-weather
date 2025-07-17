@@ -32,12 +32,21 @@ def args_parser() -> argparse.Namespace:
         help='Log level to use (default INFO)'
     )
 
+    parser.add_argument(
+        '--show-banner',
+        default=os.environ.get('MCP_SHOW_BANNER', 'True'),
+        help='Show the FastMCP banner (default True)'
+    )
+
     return parser.parse_args()
 
 
 def main() -> None:
     cli_args = args_parser()
-    run_cmd_args = { 'transport': cli_args.transport }
+    run_cmd_args = {
+        'transport': cli_args.transport,
+        'show_banner': cli_args.show_banner.lower() == 'true',
+    }
 
     match cli_args.transport:
         case 'http':
