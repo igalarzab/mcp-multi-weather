@@ -4,7 +4,7 @@ name = 'mcp-weather'
 authors         = [{ name = 'Jose Galarza', email = 'igalarzab@gmail.com' }]
 description     = 'MCP server for checking the weather history and forecast'
 readme          = 'README.md'
-requires-python = '>=3.10'
+requires-python = '>=3.12'
 version         = '0.1.0'
 
 dependencies = [
@@ -14,6 +14,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    'aioresponses>=0.7.6',
     'pytest-asyncio>=1.1.0',
     'pytest>=8.4.1',
     'ruff>=0.12.3',
@@ -29,6 +30,7 @@ requires      = ['hatchling']
 [tool.pyright]
 reportAny                      = 'none'
 reportIgnoreCommentWithoutRule = 'none'
+reportMissingTypeStubs         = 'none'
 reportUnknownLambdaType        = 'none'
 reportUnusedCallResult         = 'none'
 

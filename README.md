@@ -2,14 +2,45 @@
 
 ## Description
 
-MCP server for checking the weather history and forecast. This Model Context Protocol (MCP) server provides weather data functionality through a FastMCP-based service that integrates with weather providers to deliver historical weather information.
+MCP server for checking the weather history and forecast. This Model Context Protocol (MCP) server
+provides weather data functionality through a FastMCP-based service that integrates with weather
+providers to deliver historical weather information.
 
-The server exposes a `get_weather` tool that allows checking weather conditions for specific cities on past dates, making it useful for applications that need historical weather data.
+The server exposes a `get_historical_weather` tool that allows checking weather conditions for
+specific cities on past dates, making it useful for applications that need historical weather data.
 
-## How to run
+## How to run it
 
-Install the package in your claude-desktop using uv:
+First you need to create a valid API key with OpenWeather, and set it in your env file:
 
 ```
-$ uv run fastmcp install claude-desktop src/mcp_weather/mcp.py --env-file .env --env PYTHONPATH=$PWD/src/
+$ cp .env.example .env
+$ vim .env.example # Modify the values
+```
+
+Now you can run the server locally:
+
+```
+$ uv run mcp-weather
+```
+
+Or, you can install the package in your claude-desktop:
+
+```
+$ uv run fastmcp install claude-desktop src/mcp_weather/__main__.py --env-file .env --env PYTHONPATH=$PWD/src/
+```
+
+## Development
+
+You can run the tests using pytest:
+
+```
+$ uv run pytest
+$ uv run pytest --ow-api-key=DUMMY  # To run tests against the real OpenWeather API
+```
+
+You can also check the syntax and lint the code with ruff:
+
+```
+$ uv run ruff check
 ```

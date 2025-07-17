@@ -1,7 +1,7 @@
-import aiohttp
 import os
 import time
 
+import aiohttp
 from pydantic import PastDate
 
 from .types import GeoCode, InvalidAuth, QuotaExceeded, Scalar, Weather
