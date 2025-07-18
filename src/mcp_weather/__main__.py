@@ -1,11 +1,16 @@
 import argparse
 import os
 
+from dotenv import load_dotenv
 from fastmcp import FastMCP
 from starlette.requests import Request
 from starlette.responses import PlainTextResponse
 
 from mcp_weather.components.weather import WeatherComponent
+
+
+# Load env vars from .env file
+load_dotenv()
 
 mcp: FastMCP[None] = FastMCP(
     name='mcp-weather',
