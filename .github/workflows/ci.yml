@@ -7,6 +7,9 @@ on:
   push:
     branches: [main]
 
+env:
+  LATEST_PYTHON_VERSION: "3.13"
+
 jobs:
   test:
     name: Run tests
@@ -37,3 +40,48 @@ jobs:
         run: uv run --frozen pytest
         env:
           OPENWEATHER_API_KEY: dummy
+
+      - name: Upload project
+        if: matrix.python-version == env.LATEST_PYTHON_VERSION
+        uses: actions/upload-artifact@v4
+        with:
+          name: project
+          path: .
+          retention-days: 1
+
+  docker:
+    name: Build and push Docker image
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.ref == 'refs/heads/main'
+    needs: [test]
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Download compiled project
+        uses: actions/download-artifact@v4
+        with:
+          name: project
+          path: .
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          activate-environment: true
+          enable-cache: true
+          python-version: ${{ env.LATEST_PYTHON_VERSION }}
+          version: "latest"
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build docker image
+        run: make package
+
+      - name: Push docker image
+        run: make push
