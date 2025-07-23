@@ -10,6 +10,7 @@ load_dotenv()
 
 # Create app and expose the MCP object for FastMCP's claude-desktop installer
 app = MCPWeather.from_env()
+app.register_all()
 mcp = app.server
 
 

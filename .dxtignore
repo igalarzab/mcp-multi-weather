@@ -12,7 +12,3 @@ wheels/
 
 # Artifacts
 *.dxt
-
-# Extras
-.venv
-manifest.json

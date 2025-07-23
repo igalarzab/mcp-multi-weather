@@ -7,8 +7,12 @@ dist/
 wheels/
 *.egg-info
 
-# Virtual environments
-.venv
-
 # Secrets
 .env
+
+# Artifacts
+*.dxt
+
+# Extras
+.venv
+manifest.json

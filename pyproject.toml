@@ -3,12 +3,14 @@ name = "mcp-weather"
 
 authors         = [{ name = "Jose Galarza", email = "igalarzab@gmail.com" }]
 description     = "MCP server for checking the weather history and forecast"
+license         = "MIT"
 readme          = "README.md"
 requires-python = ">=3.12"
-version         = "0.1.0"
+version         = "0.2.0"
 
 dependencies = [
   "aiohttp[speedups]>=3.12.14",
+  "dotenv>=0.9.9",
   "fastmcp>=2.10.6",
 ]
 
@@ -21,8 +23,12 @@ dev = [
   "ruff>=0.12.4",
 ]
 
+[project.urls]
+Homepage = "https://github.com/igalarzab/mcp-weather"
+
 [project.scripts]
-mcp-weather = "mcp_weather.cli.server:main"
+dxt-manifest = "mcp_weather.cli.dxt_manifest:main"
+mcp-weather  = "mcp_weather.cli.server:main"
 
 [build-system]
 build-backend = "hatchling.build"
