@@ -27,7 +27,7 @@ $ uv run mcp-weather
 Or, you can install the package in your claude-desktop:
 
 ```
-$ uv run fastmcp install claude-desktop src/mcp_weather/__main__.py --env-file .env --env PYTHONPATH=$PWD/src/
+$ uv run fastmcp install claude-desktop src/mcp_weather/cli/server.py --env-file .env --env PYTHONPATH=$PWD/src/
 ```
 
 ## Development
