@@ -3,10 +3,14 @@ import os
 
 from dotenv import load_dotenv
 
-from .mcp import MCPWeather
+from mcp_weather.mcp import MCPWeather
 
 # Load env vars from .env file
 load_dotenv()
+
+# Create app and expose the MCP object for FastMCP's claude-desktop installer
+app = MCPWeather.from_env()
+mcp = app.server
 
 
 def args_parser() -> argparse.Namespace:
@@ -65,8 +69,7 @@ def main() -> None:
         case _:
             pass
 
-    mcp = MCPWeather.from_env()
-    mcp.run(**run_cmd_args)
+    app.run(**run_cmd_args)
 
 
 if __name__ == '__main__':
