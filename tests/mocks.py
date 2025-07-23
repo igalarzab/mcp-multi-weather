@@ -9,6 +9,8 @@ def ow_geocode_mock(**params: object):
     url += f'&q={params.get("city", "London")}%252C+{params.get("country", "UK")}'
     url += f'&units={params.get("units", "metric")}'
 
+    print(url)
+
     response = [
         {
             'name': params.get('city', 'London'),

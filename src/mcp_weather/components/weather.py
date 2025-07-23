@@ -3,14 +3,14 @@ from fastmcp.contrib.mcp_mixin import MCPMixin, mcp_tool
 from mcp.types import ToolAnnotations
 from pydantic import PastDate
 
-from ..providers.openweather import OpenWeather
+from mcp_weather.providers import WeatherProvider
 
 
 class WeatherComponent(MCPMixin):
-    weather_provider: OpenWeather
+    weather_provider: WeatherProvider
 
-    def __init__(self):
-        self.weather_provider = OpenWeather.from_env()
+    def __init__(self, provider: WeatherProvider):
+        self.weather_provider = provider
 
     @mcp_tool(annotations=ToolAnnotations(title='Get Historical Weather', readOnlyHint=True))
     async def get_historical_weather(self, address: str, day: PastDate, ctx: Context) -> str:

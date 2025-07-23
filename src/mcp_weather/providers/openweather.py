@@ -4,10 +4,11 @@ import time
 import aiohttp
 from pydantic import PastDate
 
+from .base import WeatherProvider
 from .types import GeoCode, InvalidAuth, QuotaExceeded, Scalar, Weather
 
 
-class OpenWeather:
+class OpenWeather(WeatherProvider):
     BASE_URL: str = 'https://api.openweathermap.org'
 
     api_key: str
@@ -15,7 +16,7 @@ class OpenWeather:
     lang: str
 
     @staticmethod
-    def from_env():
+    def from_env() -> 'OpenWeather':
         api_key = os.environ.get('OPENWEATHER_API_KEY')
 
         if not api_key:

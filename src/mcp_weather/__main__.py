@@ -2,27 +2,11 @@ import argparse
 import os
 
 from dotenv import load_dotenv
-from fastmcp import FastMCP
-from starlette.requests import Request
-from starlette.responses import PlainTextResponse
 
-from mcp_weather.components.weather import WeatherComponent
+from .mcp import MCPWeather
 
 # Load env vars from .env file
 load_dotenv()
-
-mcp: FastMCP[None] = FastMCP(
-    name='mcp-weather',
-    dependencies=['aiohttp[speedups]'],
-)
-
-weather_component = WeatherComponent()
-weather_component.register_all(mcp_server=mcp)
-
-
-@mcp.custom_route('/health', methods=['GET'])
-async def health(_request: Request) -> PlainTextResponse:
-    return PlainTextResponse('OK')
 
 
 def args_parser() -> argparse.Namespace:
@@ -81,6 +65,7 @@ def main() -> None:
         case _:
             pass
 
+    mcp = MCPWeather.from_env()
     mcp.run(**run_cmd_args)
 
 
