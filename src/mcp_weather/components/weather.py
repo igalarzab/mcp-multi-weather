@@ -14,7 +14,7 @@ class WeatherComponent(MCPMixin):
 
     @mcp_tool(annotations=ToolAnnotations(title='Get Historical Weather', readOnlyHint=True))
     async def get_historical_weather(self, address: str, day: PastDate, ctx: Context) -> str:
-        '''
+        """
         Get historical weather data for a specific city and date.
 
         Returns temperature, sky conditions, and general weather information for past dates only.
@@ -22,7 +22,7 @@ class WeatherComponent(MCPMixin):
         Arguments:
             `address`: City and country (format: "City, Country")
             `day`: Date in ISO8601 format (YYYY-MM-DD)
-        '''
+        """
         await ctx.debug(f'Getting historical weather for {address} on {day}')
         result = await self.weather_provider.daily_weather(address, day)
 

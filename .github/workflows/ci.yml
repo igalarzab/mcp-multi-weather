@@ -36,10 +36,16 @@ jobs:
       - name: Install the project
         run: uv sync --locked --all-extras --dev
 
-      - name: Check linter and code formatter
+      - name: Check code types
+        run: uv run --frozen pyright
+
+      - name: Check code linter
         run: uv run --frozen ruff check
 
-      - name: Test with Python ${{ matrix.python-version }}
+      - name: Check code formatter
+        run: uv run --frozen ruff format
+
+      - name: Run tests
         run: uv run --frozen pytest
         env:
           OPENWEATHER_API_KEY: dummy

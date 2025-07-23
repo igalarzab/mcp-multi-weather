@@ -1,4 +1,5 @@
 from datetime import date
+
 import pytest
 
 from mcp_weather.providers.openweather import OpenWeather

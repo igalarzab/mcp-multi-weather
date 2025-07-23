@@ -34,11 +34,14 @@ class OpenWeather:
         if not geocode:
             return None
 
-        response = await self._call('data/3.0/onecall/timemachine', {
-            'lat': geocode.lat,
-            'lon': geocode.lon,
-            'dt': int(time.mktime(day.timetuple())),
-        })
+        response = await self._call(
+            'data/3.0/onecall/timemachine',
+            {
+                'lat': geocode.lat,
+                'lon': geocode.lon,
+                'dt': int(time.mktime(day.timetuple())),
+            },
+        )
 
         if not response or 'data' not in response or not len(response['data']) > 0:
             return None
@@ -51,14 +54,17 @@ class OpenWeather:
         return Weather(
             address=f'{geocode.name}, {geocode.country}',
             temperature=data['temp'],
-            description=data['weather'][0]['description']
+            description=data['weather'][0]['description'],
         )
 
     async def _find_geocode(self, address: str) -> GeoCode | None:
-        response = await self._call('geo/1.0/direct', {
-            'q': address,
-            'limit': 1,
-        })
+        response = await self._call(
+            'geo/1.0/direct',
+            {
+                'q': address,
+                'limit': 1,
+            },
+        )
 
         if len(response) == 0:
             return None
@@ -67,7 +73,7 @@ class OpenWeather:
             name=response[0]['name'],
             country=response[0]['country'],
             lat=response[0]['lat'],
-            lon=response[0]['lon']
+            lon=response[0]['lon'],
         )
 
     async def _call(self, path: str, params: dict[str, Scalar]):
@@ -75,7 +81,7 @@ class OpenWeather:
             'appid': self.api_key,
             'units': self.units,
             'lang': self.lang,
-            **params
+            **params,
         }
 
         async with aiohttp.ClientSession() as session:

@@ -1,6 +1,5 @@
 import pytest
-
-from pytest import Parser, FixtureRequest
+from pytest import FixtureRequest, Parser
 
 
 def pytest_addoption(parser: Parser) -> None:
@@ -8,7 +7,7 @@ def pytest_addoption(parser: Parser) -> None:
         '--ow-api-key',
         action='store',
         default=None,
-        help='OpenWeather API key for real API tests'
+        help='OpenWeather API key for real API tests',
     )
 
 
