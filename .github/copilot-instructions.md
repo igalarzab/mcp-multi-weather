@@ -53,7 +53,6 @@ uv run fastmcp install claude-desktop src/mcp_weather/cli/server.py --env-file .
 - Mock external APIs using `aioresponses` in test files
 - Test helper functions in `tests/mocks.py` generate OpenWeather API URLs and responses
 - Use `# type: ignore[reportUnknownMemberType]` for FastMCP-related type issues
-- Run with real API: `uv run pytest --ow-api-key=DUMMY`
 
 ### Code Quality
 
