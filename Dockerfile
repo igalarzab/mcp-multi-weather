@@ -8,30 +8,30 @@ ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 
 # Install the project's dependencies
 RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --locked --no-install-project --no-dev
+  --mount=type=bind,source=uv.lock,target=uv.lock \
+  --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+  uv sync --locked --no-install-project --no-dev
 
 # Add the rest of the project
-COPY pyproject.toml uv.lock README.md /app
+COPY pyproject.toml uv.lock README.md /app/
 COPY src /app/src
 
 # Install the app
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked --no-dev
+  uv sync --locked --no-dev
 
 # Place executables in the environment at the front of the path
 ENV PATH="/app/.venv/bin:$PATH"
 
 # App Env Vars
 ENV MCP_TRANSPORT=http \
-    MCP_HOST=0.0.0.0 \
-    MCP_PORT=4200 \
-    MCP_LOG_LEVEL=info \
-    MCP_SHOW_BANNER=false
+  MCP_HOST=0.0.0.0 \
+  MCP_PORT=4200 \
+  MCP_LOG_LEVEL=info \
+  MCP_SHOW_BANNER=false
 
 # Reset the entrypoint, don't invoke `uv`
 ENTRYPOINT []
 
 # Run the application
-CMD ["python", "-m", "mcp_weather"]
+CMD ["python", "./src/mcp_weather/cli/server.py"]
