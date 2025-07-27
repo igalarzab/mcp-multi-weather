@@ -13,6 +13,9 @@ wheels/
 # Artifacts
 *.dxt
 
+# Editors
+.vscode
+
 # Extras
 .venv
 manifest.json
