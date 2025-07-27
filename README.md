@@ -15,7 +15,7 @@ First you need to create a valid API key with OpenWeather, and set it in your en
 
 ```
 $ cp .env.example .env
-$ vim .env.example # Modify the values
+$ vim .env # Modify the values
 ```
 
 Now you can run the server locally:
@@ -39,8 +39,10 @@ $ uv run pytest
 $ uv run pytest --ow-api-key=DUMMY  # To run tests against the real OpenWeather API
 ```
 
-You can also check the syntax and lint the code with ruff:
+You can also check the syntax and lint the code with pyright and ruff:
 
 ```
+$ uv run pyright
 $ uv run ruff check
+$ uv run ruff format
 ```
