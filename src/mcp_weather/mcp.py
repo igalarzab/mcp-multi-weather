@@ -1,4 +1,6 @@
 import os
+import pathlib
+import tomllib
 
 from fastmcp import FastMCP
 from starlette.requests import Request
@@ -28,7 +30,7 @@ class MCPWeather:
     def __init__(self, provider: WeatherProvider) -> None:
         self.server = FastMCP(
             name='mcp-weather',
-            dependencies=['aiohttp[speedups]'],
+            dependencies=self._load_dependencies(),
         )
 
         self.weather_component = WeatherComponent(provider=provider)
@@ -42,3 +44,13 @@ class MCPWeather:
 
     async def _health(self, _request: Request) -> PlainTextResponse:
         return PlainTextResponse('OK')
+
+    def _load_dependencies(self):
+        root_path = pathlib.Path(os.path.dirname(os.path.abspath(__file__))).parent.parent
+
+        with open(root_path / 'pyproject.toml', 'rb') as f:
+            pyproject = tomllib.load(f)
+
+        dependencies = pyproject.get('project', {}).get('dependencies', [])
+
+        return [d for d in dependencies if not d.startswith('fastmcp')]
