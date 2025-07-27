@@ -8,7 +8,7 @@ REGISTRY=ghcr.io
 GIT_COMMIT=$(shell git rev-parse HEAD)
 GIT_SHORT_COMMIT=$(shell git rev-parse --short HEAD)
 BUILD_DATE=$(shell date -u '+%Y-%m-%dT%H:%M:%SZ')
-VERSION=$(shell uv version --short)
+VERSION=v$(shell uv version --short)
 
 default: package
 

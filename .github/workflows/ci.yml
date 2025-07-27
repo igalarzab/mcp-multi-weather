@@ -58,12 +58,39 @@ jobs:
           path: .
           retention-days: 1
 
+  check-release:
+    name: Check if a new release is needed
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: [test]
+    if: github.ref == 'refs/heads/main'
+    outputs:
+      should-release: ${{ steps.check.outputs.should-release }}
+      version: ${{ steps.check.outputs.version }}
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check release status
+        id: check
+        run: |
+          VERSION=$(python ./scripts/release.py get-version)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+          if python ./scripts/release.py check-release; then
+            echo "should-release=false" >> $GITHUB_OUTPUT
+          else
+            echo "should-release=true" >> $GITHUB_OUTPUT
+          fi
+
   dxt:
     name: Release new version
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: [test]
+    needs: [test, check-release]
+    if: needs.check-release.outputs.should-release == 'true'
     permissions:
       contents: write
       packages: write
@@ -91,18 +118,17 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Release ${{ github.ref_name }}
-          tag_name: ${{ github.ref_name }}
+          name: Release ${{ needs.check-release.outputs.version }}
+          tag_name: ${{ needs.check-release.outputs.version }}
           files: ./mcp-weather.dxt
           body: |
-            ## MCP Weather Server ${{ github.ref_name }}
+            ## MCP Weather Server ${{ needs.check-release.outputs.version }}
 
             ### Installation Options
 
             **Docker Image:**
             ```bash
-            docker pull ghcr.io/igalarzab/mcp-weather:${{ github.ref_name }}
-            docker pull ghcr.io/igalarzab/mcp-weather:latest
+            docker pull ghcr.io/igalarzab/mcp-weather:${{ needs.check-release.outputs.version }}
             ```
 
             **DXT Package:**
@@ -110,15 +136,15 @@ jobs:
 
             **Python Package:**
             ```bash
-            pip install mcp-weather==${{ github.ref_name }}
+            pip install mcp-weather==${{ needs.check-release.outputs.version }}
             ```
 
   docker:
     name: Build and push Docker image
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: [test]
+    needs: [test, check-release]
+    if: needs.check-release.outputs.should-release == 'true'
     permissions:
       contents: read
       packages: write
