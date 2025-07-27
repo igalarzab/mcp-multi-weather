@@ -35,9 +35,11 @@ class TestMCPWeather:
                 result = await client.call_tool(
                     'get_historical_weather', {'address': 'Madrid, ES', 'day': '2024-01-01'}
                 )
-                assert (
-                    result.data == 'The temperature in Madrid, ES was 20.0C. The weather was cloudy'
-                )
+                assert result.data == {
+                    'address': 'Madrid, ES',
+                    'description': 'cloudy',
+                    'temperature': 20.0,
+                }
 
     async def test_get_weather_with_future_day(self):
         future_day = (date.today() + timedelta(days=1)).isoformat()
@@ -97,7 +99,4 @@ class TestMCPWeather:
                     'get_historical_weather',
                     {'address': 'NonExistentCity, ES', 'day': '2025-01-01'},
                 )
-                assert (
-                    result.data
-                    == 'There is no historical weather for NonExistentCity, ES on 2025-01-01'
-                )
+                assert result.data is None

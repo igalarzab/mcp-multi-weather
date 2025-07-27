@@ -4,6 +4,7 @@ from mcp.types import ToolAnnotations
 from pydantic import PastDate
 
 from mcp_weather.providers import WeatherProvider
+from mcp_weather.providers.types import Weather
 
 
 class WeatherComponent(MCPMixin):
@@ -12,8 +13,10 @@ class WeatherComponent(MCPMixin):
     def __init__(self, provider: WeatherProvider):
         self.weather_provider = provider
 
-    @mcp_tool(annotations=ToolAnnotations(title='Get Historical Weather', readOnlyHint=True))
-    async def get_historical_weather(self, address: str, day: PastDate, ctx: Context) -> str:
+    @mcp_tool(annotations=ToolAnnotations(readOnlyHint=True))
+    async def get_historical_weather(
+        self, address: str, day: PastDate, ctx: Context
+    ) -> Weather | None:
         """
         Get historical weather data for a specific city and date.
 
@@ -28,6 +31,6 @@ class WeatherComponent(MCPMixin):
 
         if not result:
             await ctx.debug(f'No historical weather for {address} on {day}')
-            return f'There is no historical weather for {address} on {day}'
+            return None
 
-        return result.explain()
+        return result

@@ -33,9 +33,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
           version: "latest"
 
-      - name: Run pre-commit
-        uses: pre-commit/action@v3.0.1
-
       - name: Install the project
         run: uv sync --locked --all-extras --dev
 

@@ -46,7 +46,8 @@
       "type": "string",
       "title": "OpenWeather API Key",
       "description": "API Key to access OpenWeather",
-      "required": true
+      "required": true,
+      "sensitive": true
     }
   },
   "compatibility": {
