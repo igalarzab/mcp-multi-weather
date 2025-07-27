@@ -16,11 +16,10 @@
     "mcp_config": {
       "command": "python3",
       "args": [
-        "$${__dirname}/src/mcp_weather/cli/server.py",
-        "--transport",
-        "stdio"
+        "$${__dirname}/src/mcp_weather/cli/server.py"
       ],
       "env": {
+        "MCP_TRANSPORT": "stdio",
         "WEATHER_PROVIDER": "$${user_config.weather_provider}",
         "OPENWEATHER_API_KEY": "$${user_config.openweather_api_key}",
         "PYTHONPATH": "$${__dirname}/${SITE_PACKAGES_PATH}:$${__dirname}/src"
@@ -52,7 +51,11 @@
   },
   "compatibility": {
     "claude_desktop": ">=0.10.0",
-    "platforms": ["darwin", "win32", "linux"],
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
     "runtimes": {
       "python": "$APP_PYTHON_VERSION"
     }
