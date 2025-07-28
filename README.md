@@ -1,4 +1,4 @@
-# mcp-weather
+# mcp-multi-weather
 
 ## Description
 
@@ -21,13 +21,13 @@ $ vim .env # Modify the values
 Now you can run the server locally:
 
 ```
-$ uv run mcp-weather
+$ uv run mcp-multi-weather
 ```
 
 Or, you can install the package in your claude-desktop:
 
 ```
-$ uv run fastmcp install claude-desktop src/mcp_weather/cli/server.py --env-file .env --env PYTHONPATH=$PWD/src/
+$ uv run fastmcp install claude-desktop src/mcp_multi_weather/cli/server.py --env-file .env --env PYTHONPATH=$PWD/src/
 ```
 
 ## Development

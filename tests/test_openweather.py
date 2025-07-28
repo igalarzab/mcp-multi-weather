@@ -2,8 +2,8 @@ from datetime import date
 
 import pytest
 
-from mcp_weather.providers.openweather import OpenWeather
-from mcp_weather.providers.types import Weather
+from mcp_multi_weather.providers.openweather import OpenWeather
+from mcp_multi_weather.providers.types import Weather
 
 
 class TestOpenWeatherClient:

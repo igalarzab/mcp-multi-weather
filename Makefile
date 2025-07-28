@@ -1,7 +1,7 @@
 .PHONY: default help package push
 
-APP_NAME=mcp-weather
-IMAGE_NAME=igalarzab/mcp-weather
+APP_NAME=mcp-multi-weather
+IMAGE_NAME=igalarzab/mcp-multi-weather
 REGISTRY=ghcr.io
 
 # Not constant variables

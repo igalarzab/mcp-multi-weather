@@ -29,8 +29,12 @@ class MCPWeather:
 
     def __init__(self, provider: WeatherProvider) -> None:
         self.server = FastMCP(
-            name='mcp-weather',
-            dependencies=self._load_dependencies(),
+            name='mcp-multi-weather',
+            dependencies=[
+                'aiohttp[speedups]>=3.12.14',
+                'dotenv>=0.9.9',
+                'fastmcp>=2.10.6',
+            ]
         )
 
         self.weather_component = WeatherComponent(provider=provider)

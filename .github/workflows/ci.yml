@@ -120,7 +120,7 @@ jobs:
         with:
           name: Release ${{ needs.check-release.outputs.version }}
           tag_name: ${{ needs.check-release.outputs.version }}
-          files: ./mcp-weather.dxt
+          files: ./mcp-multi-weather.dxt
           body: |
             ## MCP Weather Server ${{ needs.check-release.outputs.version }}
 
@@ -128,7 +128,7 @@ jobs:
 
             **Docker Image:**
             ```bash
-            docker pull ghcr.io/igalarzab/mcp-weather:${{ needs.check-release.outputs.version }}
+            docker pull ghcr.io/igalarzab/mcp-multi-weather:${{ needs.check-release.outputs.version }}
             ```
 
             **DXT Package:**
@@ -136,7 +136,7 @@ jobs:
 
             **Python Package:**
             ```bash
-            pip install mcp-weather==${{ needs.check-release.outputs.version }}
+            pip install mcp-multi-weather==${{ needs.check-release.outputs.version }}
             ```
 
   docker:

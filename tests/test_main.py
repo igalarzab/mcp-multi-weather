@@ -6,8 +6,8 @@ from aioresponses import aioresponses
 from fastmcp import Client
 from fastmcp.exceptions import ToolError
 
-from mcp_weather.mcp import MCPWeather
-from mcp_weather.providers import OpenWeather
+from mcp_multi_weather.mcp import MCPWeather
+from mcp_multi_weather.providers import OpenWeather
 
 from .mocks import ow_error, ow_geocode_mock, ow_timemachine_mock
 

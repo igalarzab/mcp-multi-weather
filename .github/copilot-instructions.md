@@ -6,10 +6,10 @@ This is a **Model Context Protocol (MCP) server** built with FastMCP that provid
 weather data through a `get_historical_weather` tool. The architecture follows a clean provider
 pattern:
 
-- **Entry Point**: `src/mcp_weather/cli/server.py` - CLI module with args parser and server initialization
-- **MCP Server**: `src/mcp_weather/mcp.py` - FastMCP server setup with health endpoint
-- **Components**: `src/mcp_weather/components/weather.py` - MCP tools using `@mcp_tool` decorator
-- **Providers**: `src/mcp_weather/providers/` - Abstract weather provider pattern with OpenWeather implementation
+- **Entry Point**: `src/mcp_multi_weather/cli/server.py` - CLI module with args parser and server initialization
+- **MCP Server**: `src/mcp_multi_weather/mcp.py` - FastMCP server setup with health endpoint
+- **Components**: `src/mcp_multi_weather/components/weather.py` - MCP tools using `@mcp_tool` decorator
+- **Providers**: `src/mcp_multi_weather/providers/` - Abstract weather provider pattern with OpenWeather implementation
 
 ## Key Patterns & Conventions
 
@@ -42,10 +42,10 @@ pattern:
 cp .env.example .env
 
 # Install and run locally
-uv run mcp-weather
+uv run mcp-multi-weather
 
 # Install in Claude Desktop
-uv run fastmcp install claude-desktop src/mcp_weather/cli/server.py --env-file .env --env PYTHONPATH=$PWD/src/
+uv run fastmcp install claude-desktop src/mcp_multi_weather/cli/server.py --env-file .env --env PYTHONPATH=$PWD/src/
 ```
 
 ### Testing Patterns
@@ -62,10 +62,10 @@ uv run fastmcp install claude-desktop src/mcp_weather/cli/server.py --env-file .
 
 ## Critical Files to Understand
 
-- `src/mcp_weather/cli/server.py` - CLI entry point with module-level app/mcp exports for FastMCP integration
-- `src/mcp_weather/mcp.py` - Server initialization and component registration pattern
-- `src/mcp_weather/components/weather.py` - MCP tool implementation with proper annotations
-- `src/mcp_weather/providers/openweather.py` - API integration with error handling patterns
+- `src/mcp_multi_weather/cli/server.py` - CLI entry point with module-level app/mcp exports for FastMCP integration
+- `src/mcp_multi_weather/mcp.py` - Server initialization and component registration pattern
+- `src/mcp_multi_weather/components/weather.py` - MCP tool implementation with proper annotations
+- `src/mcp_multi_weather/providers/openweather.py` - API integration with error handling patterns
 - `tests/test_main.py` - Integration testing with mocked external services
 
 ## Transport & Deployment

@@ -3,7 +3,7 @@ import os
 
 from dotenv import load_dotenv
 
-from mcp_weather.mcp import MCPWeather
+from mcp_multi_weather.mcp import MCPWeather
 
 # Load env vars from .env file
 load_dotenv()
@@ -15,13 +15,13 @@ mcp = app.server
 
 
 def args_parser() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description='Run the mcp-weather service')
+    parser = argparse.ArgumentParser(description='Run the mcp-multi-weather service')
 
     parser.add_argument(
         '--transport',
         choices=['http', 'stdio'],
-        default=os.environ.get('MCP_TRANSPORT', 'http'),
-        help='Transport to use: http or stdio (default: http)',
+        default=os.environ.get('MCP_TRANSPORT', 'stdio'),
+        help='Transport to use: http or stdio (default: stdio)',
     )
 
     parser.add_argument(

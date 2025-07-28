@@ -625,8 +625,8 @@ wheels = [
 ]
 
 [[package]]
-name = "mcp-weather"
-version = "0.2.0"
+name = "mcp-multi-weather"
+version = "0.2.1"
 source = { editable = "." }
 dependencies = [
     { name = "aiohttp", extra = ["speedups"] },

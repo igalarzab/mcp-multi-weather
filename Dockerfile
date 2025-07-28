@@ -34,4 +34,4 @@ ENV MCP_TRANSPORT=http \
 ENTRYPOINT []
 
 # Run the application
-CMD ["python", "./src/mcp_weather/cli/server.py"]
+CMD ["python", "./src/mcp_multi_weather/cli/server.py"]

@@ -3,8 +3,8 @@ from fastmcp.contrib.mcp_mixin import MCPMixin, mcp_tool
 from mcp.types import ToolAnnotations
 from pydantic import PastDate
 
-from mcp_weather.providers import WeatherProvider
-from mcp_weather.providers.types import Weather
+from ..providers import WeatherProvider
+from ..providers.types import Weather
 
 
 class WeatherComponent(MCPMixin):
