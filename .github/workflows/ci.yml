@@ -93,7 +93,6 @@ jobs:
     if: needs.check-release.outputs.should-release == 'true'
     permissions:
       contents: write
-      packages: write
     steps:
       - name: Download compiled project
         uses: actions/download-artifact@v4
@@ -116,28 +115,12 @@ jobs:
         run: npx @anthropic-ai/dxt pack
 
       - name: Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v2.3.2
         with:
           name: Release ${{ needs.check-release.outputs.version }}
           tag_name: ${{ needs.check-release.outputs.version }}
           files: ./mcp-multi-weather.dxt
-          body: |
-            ## MCP Weather Server ${{ needs.check-release.outputs.version }}
-
-            ### Installation Options
-
-            **Docker Image:**
-            ```bash
-            docker pull ghcr.io/igalarzab/mcp-multi-weather:${{ needs.check-release.outputs.version }}
-            ```
-
-            **DXT Package:**
-            Download the `.dxt` file from the assets below and install it using your preferred MCP client.
-
-            **Python Package:**
-            ```bash
-            pip install mcp-multi-weather==${{ needs.check-release.outputs.version }}
-            ```
+          body_path: ./.github/RELEASE.md
 
   docker:
     name: Build and push Docker image

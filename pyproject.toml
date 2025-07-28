@@ -1,12 +1,12 @@
 [project]
-name = "mcp-multi-weather"
+name    = "mcp-multi-weather"
+version = "0.2.1"
 
 authors         = [{ name = "Jose Galarza", email = "igalarzab@gmail.com" }]
 description     = "MCP server for checking the weather history and forecast"
 license         = "MIT"
 readme          = "README.md"
 requires-python = ">=3.12"
-version = "0.2.1"
 
 dependencies = [
   "aiohttp[speedups]>=3.12.14",
